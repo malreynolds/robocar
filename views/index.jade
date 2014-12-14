@@ -1,0 +1,66 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        meta(name="description", content="A web application to control an IoT wheeled robot")
+        meta(name="author" content="Atanas Abrashev")
+
+        title RoboCar
+
+        link(href="lib/bootstrap/css/bootstrap.min.css", rel="stylesheet")
+
+        link(href="css/style.css", rel="stylesheet")
+
+    body
+        .container
+            h1 Control RoboCar
+            p.lead.
+                Plug in your Leap Motion Controller and start moving the robot. <br/>
+                If unavailable, you can also use the keyboard <kbd>w</kbd> <kbd>a</kbd> <kbd>s</kbd> <kbd>d</kbd> control.
+            h2 Leap Connection
+            table(class="table table-hover")
+                thead
+                    tr
+                        th Device flags
+                        th Value
+                tbody
+                    tr
+                        td Ready
+                        td#readyFlag
+                    tr
+                        td Connected
+                        td#connectedFlag
+                    tr
+                        td Focused
+                        td#focusedFlag
+                    tr
+                        td Attached
+                        td#attachedFlag
+                    tr
+                        td Streaming
+                        td#streamingFlag
+            h2 Robot Input
+            table(class="table table-hover")
+                thead
+                    tr
+                        th Data
+                        th Value
+                tbody
+                    tr
+                        td Direction
+                        td#directionValue
+                    tr
+                        td Speed
+                        td#speedValue
+                    tr
+                        td Break
+                        td#breakValue
+
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+        script(src="lib/bootstrap/js/bootstrap.min.js")
+        script(src="/socket.io/socket.io.js")
+        script(src="//js.leapmotion.com/leap-0.6.3.min.js")
+        script(src="js/leap_controller.js")
+        //- script(src="js/key_controller.js")
+
