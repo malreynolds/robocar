@@ -27,7 +27,7 @@ var path       = require('path');
 var debug      = require("debug")("robocar");
 var app        = express();
 var socketio   = require('socket.io');
-var five       = require("johnny-five"),
+var five       = require("johnny-five");
 var board      = new five.Board();
 // -------------------------------------------
 
