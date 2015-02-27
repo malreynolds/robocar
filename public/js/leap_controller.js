@@ -9,7 +9,7 @@ window.onload = function () {
 
     controller.connect();
     controller.setBackground(true);
- 
+
 
     controller.on('ready', function() {
         $('#readyFlag').text("ready. Service version: " + controller.connection.protocol.serviceVersion);
@@ -31,12 +31,7 @@ window.onload = function () {
             if (dirVal < 0) {
                 dirVal += 360;
             }
-            // Normalize speed
-            if (spdVal < 20) {
-                spdVal = 0;
-            } else if (spdVal > 100) {
-                spdVal = 100;
-            }
+
             // Normalize break to binary 1 or 0
             if (brkVal > 0.9) {
                 brkVal = 1;

@@ -41,6 +41,7 @@ html(lang="en")
                         td Streaming
                         td#streamingFlag
             h2 Robot Input
+            #canvas
             table(class="table table-hover")
                 thead
                     tr
@@ -58,7 +59,10 @@ html(lang="en")
                         td#breakValue
 
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+        script(src="lib/raphael-min.js")
+        script(src="lib/raphael.tachometer.js/raphael.tachometer.min.js")
         script(src="lib/bootstrap/js/bootstrap.min.js")
+        script(Raphael('canvas').tachometer(45, {number: false});)
         script(src="/socket.io/socket.io.js")
         script(src="//js.leapmotion.com/leap-0.6.3.min.js")
         script(src="js/leap_controller.js")

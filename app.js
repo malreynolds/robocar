@@ -63,7 +63,7 @@ var io = socketio.listen(server);
 var firstTime = Date.now();
 var secondTime;
 var diff;
-var isBraking;
+var isBraking = false;
 
 board.on("ready", function() {
 
@@ -104,18 +104,25 @@ board.on("ready", function() {
         clearTimeout(timeout)
       }
 
-      timeout = setTimeout(function(){lm.stop()}, 100);
+      timeout = setTimeout(function(){
+        lm.stop();
+        rm.stop();
+      }, 100);
 
       if (diff > 15) {
-        lm.forward(message.speed + 60);
+        if (isBraking == false)
+          lm.start(message.speed + 60);
+        console.log(message);
         if (message.breaks == 1 && isBraking == false) {
           isBraking = true;
           lm.brake();
+          rm.brake();
           console.log("breaking");
         }
         else if (message.breaks == 0 && isBraking == true) {
           isBraking = false;
           lm.release();
+          rm.release();
           console.log("releasing breaks");
         }
       }
