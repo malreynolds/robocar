@@ -39,7 +39,7 @@ window.onload = function () {
 
                 // Send values to the server. Use emit for now, but change to send later in case
                 // it happens to be more efficient
-                socket.emit("controlMessage", {lmspd: handZ, rmspd: handY, brake: brkVal});
+                socket.emit("controlMessage", {lmspd: handZ, rmspd: handX, brake: brkVal});
 
                 // Update the browser client values
                 directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
