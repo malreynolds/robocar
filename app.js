@@ -98,7 +98,6 @@ board.on("ready", function() {
       secondTime = Date.now();
       diff = secondTime - firstTime
       firstTime = secondTime;
-      console.log(diff);
 
       if (timeout) {
         clearTimeout(timeout)
@@ -113,7 +112,7 @@ board.on("ready", function() {
         if (isBraking == false)
           // lm.start(message.speed + 60);
           console.log("I'm supposed to be moving now");
-        console.log(message + " , Time:" + diff);
+        console.log(message, " , Time:", diff);
         if (message.brake == 1 && isBraking == false) {
           isBraking = true;
           lm.brake();
