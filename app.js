@@ -111,10 +111,12 @@ board.on("ready", function() {
         if (message.breaks == 1 && isBraking == false) {
           isBraking = true;
           lm.brake();
+          console.log("breaking");
         }
         else if (message.breaks == 0 && isBraking == true) {
           isBraking = false;
           lm.release();
+          console.log("releasing breaks");
         }
       }
     });
