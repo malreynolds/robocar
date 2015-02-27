@@ -104,7 +104,7 @@ board.on("ready", function() {
         clearTimeout(timeout)
       }
 
-      timeout = setTimeout(function(){lm.stop()});
+      timeout = setTimeout(function(){lm.stop()}, 100);
 
       if (diff > 15) {
         lm.forward(message.speed + 60);
