@@ -25,7 +25,7 @@ window.onload = function () {
                 handX  = hand.palmPosition[0],
                 handZ  = hand.palmPosition[2],
                 dirVal = Math.atan2(-handZ, handX) * radToDeg,
-                spdVal = (Math.abs(handX) > Math.abs(handZ)) ? Math.abs(handX) : Math.abs(handZ);
+                spdVal = handZ;
 
             // Normalize direction
             if (dirVal < 0) {
