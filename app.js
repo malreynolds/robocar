@@ -112,7 +112,7 @@ board.on("ready", function() {
         if (isBraking == false)
           // lm.start(message.speed + 60);
           console.log("I'm supposed to be moving now");
-        console.log(message, " , Time:", diff);
+        console.log(message, diff);
         if (message.brake == 1 && isBraking == false) {
           isBraking = true;
           lm.brake();

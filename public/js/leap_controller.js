@@ -28,10 +28,27 @@ window.onload = function () {
                     lmspd, rmspd,
                     spdVal = -handZ;
 
-
                 // Normalize direction
                 if (dirVal < 0)
                     dirVal += 360;
+
+                if (dirVal >= 90 && dirVal <= 180) {
+                    // If going left, reduce speed of left motor
+                    rmspd = spdVal;
+                    lmspd = spdVal - ((dirVal - 90) / 90) * spdVal;
+                } else if (dirVal >= 0 && dirVal <= 90) {
+                    // If going right, reduce speed of right motor
+                    rmspd = spdVal - ((90 - dirVal) / 90) * spdVal;
+                    lmspd = spdVal;
+                } else if (dirVal >= 180 && dirVal =< 270) {
+                    // If going left backwards, reduce speed of left motor
+                    rmspd = spdVal;
+                    lmspd = spdVal - ((270 - dirVal) / 90) * spdVal;
+                } else {
+                    // If going right backwards, reduce speed of right motor
+                    rmspd = spdVal - ((dirVal - 270) / 90) * spdVal;
+                    lmspd = spdVal;
+                }
 
                 // Normalize brake to binary 1 or 0
                 brkVal = (brkVal > 0.9 ? 1 : 0);
@@ -39,7 +56,7 @@ window.onload = function () {
 
                 // Send values to the server. Use emit for now, but change to send later in case
                 // it happens to be more efficient
-                socket.emit("controlMessage", {lmspd: handZ, rmspd: handX, brake: brkVal});
+                socket.emit("controlMessage", {lmspeed: lmspd, rmspeed: rmspd, brake: brkVal});
 
                 // Update the browser client values
                 directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
