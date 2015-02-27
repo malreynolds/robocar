@@ -45,7 +45,7 @@ window.onload = function () {
                 $('#directionValue').text(dirVal.toPrecision(3));
                 $('#speedValue').text(spdVal.toPrecision(3));
             }
-        }
+        })
     // }, 20);
     });
     controller.on('disconnect', function() {
