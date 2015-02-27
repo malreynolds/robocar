@@ -98,20 +98,10 @@ board.on("ready", function() {
       firstTime = secondTime;
       console.log(diff);
       if (diff > 15) {
-        console.log("good");
+        console.log(message);
       }
     });
   })
-
-  // Start the motors at half speed
-  for (int i = 128; i >= 0; i--;) {
-    board.wait(20, function(){
-      lm.forward(i);
-      rm.forward(i);
-    })
-  }
-  lm.stop();
-  rm.stop();
 });
 
 
