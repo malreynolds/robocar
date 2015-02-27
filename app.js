@@ -62,24 +62,6 @@ var io = socketio.listen(server);
 
 board.on("ready", function() {
 
-  var count = 0;
-  var firstTime = Date.now();
-  var secondTime;
-  var diff;
-
-  // On client connection
-  io.sockets.on('connection', function(socket) {
-    socket.on('controlMessage', function(message) {
-      secondTime = Date.now();
-      diff = secondTime - firstTime
-      firstTime = secondTime;
-      console.log(diff);
-      if (diff > 15) {
-        console.log("good");
-      }
-    });
-  })
-
   console.log("The T'Rex Motor Controller is ready!");
 
   var lm = new five.Motor({
@@ -98,37 +80,33 @@ board.on("ready", function() {
     }
   });
 
-  lm.on("forward", function(err, timestamp) {
-    // demonstrate braking after 5 seconds
-    board.wait(5000, function() {
-      lm.brake();
-    });
-  });
+  var count = 0;
+  var firstTime = Date.now();
+  var secondTime;
+  var diff;
 
-  lm.on("brake", function(err, timestamp) {
-    // Release the brake after .1 seconds
-    board.wait(100, function() {
-      lm.stop();
+  // On client connection
+  io.sockets.on('connection', function(socket) {
+    socket.on('controlMessage', function(message) {
+      secondTime = Date.now();
+      diff = secondTime - firstTime
+      firstTime = secondTime;
+      console.log(diff);
+      if (diff > 15) {
+        console.log("good");
+      }
     });
-  });
-
-  rm.on("forward", function(err, timestamp) {
-    // demonstrate braking after 5 seconds
-    board.wait(5000, function() {
-      rm.brake();
-    });
-  });
-
-  rm.on("brake", function(err, timestamp) {
-    // Release the brake after .1 seconds
-    board.wait(100, function() {
-      rm.stop();
-    });
-  });
+  })
 
   // Start the motors at half speed
-  lm.forward(128);
-  rm.forward(128);
+  for (int i = 128; i >= 0; i--;) {
+    board.wait(10) {
+      lm.forward(i);
+      rm.forward(i);
+    }
+  }
+  lm.stop();
+  rm.stop();
 });
 
 
