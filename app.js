@@ -99,20 +99,22 @@ board.on("ready", function() {
       diff = secondTime - firstTime
       firstTime = secondTime;
 
+      // Clear the timeout every time
       if (timeout) {
         clearTimeout(timeout)
       }
 
+      // If we don't get a message in 100 milliseconds, stop the car from moving
       timeout = setTimeout(function(){
         lm.stop();
         rm.stop();
       }, 100);
 
+      console.log(message, diff);
+
+      // We don't wanna process events too fast so we discard frames that are too close in time
       if (diff > 15) {
-        if (isBraking == false)
-          // lm.start(message.speed + 60);
-          console.log("I'm supposed to be moving now");
-        console.log(message, diff);
+        // Handle brakes
         if (message.brake == 1 && isBraking == false) {
           isBraking = true;
           lm.brake();
@@ -124,6 +126,19 @@ board.on("ready", function() {
           lm.release();
           rm.release();
           console.log("releasing brakes");
+        }
+
+        // Handle speed and direction
+        if (isBraking == false) {
+          if (message.dir == true) {
+          // If we're moving forward
+            lm.forward(message.lmspeed);
+            rm.forward(message.rmspeed);
+          } else {
+          // If we're moving backwards
+            lm.reverse(message.lmspeed);
+            rm.reverse(message.rmspeed);
+          }
         }
       }
     });
