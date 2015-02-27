@@ -39,11 +39,11 @@ window.onload = function () {
             socket.emit("controlMessage", {speed: spdVal, direction: dirVal, breaks: brkVal});
 
             // Update the browser client values
-            tachometer.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
+            directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
+            speedmeter.set((Math.abs(spdVal) / 255) * 100);
             $('#breakValue').text(brkVal.toPrecision(3));
             $('#directionValue').text(dirVal.toPrecision(3));
             $('#speedValue').text(spdVal.toPrecision(3));
-            console.log(frame);
         }
     }, 20);
     });
