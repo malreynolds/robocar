@@ -60,6 +60,11 @@ var server = app.listen(app.get('port'), function() {
 // Check there for more details
 var io = socketio.listen(server);
 
+var firstTime = Date.now();
+var secondTime;
+var diff;
+var isBraking;
+
 board.on("ready", function() {
 
   console.log("The T'Rex Motor Controller is ready!");
@@ -85,20 +90,32 @@ board.on("ready", function() {
     rm: rm
   });
 
-  var count = 0;
-  var firstTime = Date.now();
-  var secondTime;
-  var diff;
-
   // On client connection
+
+  var timeout;
+
   io.sockets.on('connection', function(socket) {
     socket.on('controlMessage', function(message) {
       secondTime = Date.now();
       diff = secondTime - firstTime
       firstTime = secondTime;
-      console.log(diff);
+
+      if (timeout) {
+        clearTimeout(timeout)
+      }
+
+      timeout = setTimeout(function(){lm.stop()});
+
       if (diff > 15) {
-        console.log(message);
+        lm.forward(message.speed + 60);
+        if (message.breaks == 1 && isBraking == false) {
+          isBraking = true;
+          lm.brake();
+        }
+        else if (message.breaks == 0 && isBraking == true) {
+          isBraking = false;
+          lm.release();
+        }
       }
     });
   })
