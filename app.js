@@ -100,10 +100,10 @@ board.on("ready", function() {
 
   // Start the motors at half speed
   for (int i = 128; i >= 0; i--;) {
-    board.wait(10) {
+    board.wait(10, function(){
       lm.forward(i);
       rm.forward(i);
-    }
+    })
   }
   lm.stop();
   rm.stop();
