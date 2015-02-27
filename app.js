@@ -99,6 +99,7 @@ board.on("ready", function() {
       secondTime = Date.now();
       diff = secondTime - firstTime
       firstTime = secondTime;
+      console.log(diff);
 
       if (timeout) {
         clearTimeout(timeout)
@@ -114,17 +115,17 @@ board.on("ready", function() {
           // lm.start(message.speed + 60);
           console.log("I'm supposed to be moving now");
         console.log(message);
-        if (message.breaks == 1 && isBraking == false) {
+        if (message.brake == 1 && isBraking == false) {
           isBraking = true;
           lm.brake();
           rm.brake();
-          console.log("breaking");
+          console.log("braking");
         }
-        else if (message.breaks == 0 && isBraking == true) {
+        else if (message.brake == 0 && isBraking == true) {
           isBraking = false;
           lm.release();
           rm.release();
-          console.log("releasing breaks");
+          console.log("releasing brakes");
         }
       }
     });
