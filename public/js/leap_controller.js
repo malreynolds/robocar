@@ -17,33 +17,34 @@ window.onload = function () {
     controller.on('connect', function() {
         $('#connectedFlag').text("Connected with protocol v" + controller.connection.opts.requestProtocolVersion);
     // setInterval(function() {
-   controller.on('animationFrame', function(frame) {
-	// var frame = controller.frame()
-        if (frame.valid && frame.hands[0]){
-            var hand   = frame.hands[0],
-                brkVal = hand.grabStrength,
-                handX  = hand.palmPosition[0],
-                handZ  = hand.palmPosition[2],
-                dirVal = Math.atan2(-handZ, handX) * radToDeg,
-                spdVal = -handZ;
+        controller.on('animationFrame', function(frame) {
+    	    // var frame = controller.frame()
+            if (frame.valid && frame.hands[0]){
+                var hand   = frame.hands[0],
+                    brkVal = hand.grabStrength,
+                    handX  = hand.palmPosition[0],
+                    handZ  = hand.palmPosition[2],
+                    dirVal = Math.atan2(-handZ, handX) * radToDeg,
+                    spdVal = -handZ;
 
-            // Normalize direction
-            if (dirVal < 0)
-                dirVal += 360;
+                // Normalize direction
+                if (dirVal < 0)
+                    dirVal += 360;
 
-            // Normalize brake to binary 1 or 0
-            brkVal = (brkVal > 0.9 ? 1 : 0);
+                // Normalize brake to binary 1 or 0
+                brkVal = (brkVal > 0.9 ? 1 : 0);
 
-            // Send values to the server. Use emit for now, but change to send later in case
-            // it happens to be more efficient
-            socket.emit("controlMessage", {speed: spdVal, direction: dirVal, brakes: brkVal});
+                // Send values to the server. Use emit for now, but change to send later in case
+                // it happens to be more efficient
+                socket.emit("controlMessage", {speed: spdVal, direction: dirVal, brakes: brkVal});
 
-            // Update the browser client values
-            directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
-            speedmeter.set((Math.abs(spdVal) / 255) * 100);
-            $('#brakeValue').text(brkVal.toPrecision(3));
-            $('#directionValue').text(dirVal.toPrecision(3));
-            $('#speedValue').text(spdVal.toPrecision(3));
+                // Update the browser client values
+                directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
+                speedmeter.set((Math.abs(spdVal) / 255) * 100);
+                $('#brakeValue').text(brkVal.toPrecision(3));
+                $('#directionValue').text(dirVal.toPrecision(3));
+                $('#speedValue').text(spdVal.toPrecision(3));
+            }
         }
     // }, 20);
     });
