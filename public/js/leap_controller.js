@@ -16,9 +16,9 @@ window.onload = function () {
     });
     controller.on('connect', function() {
         $('#connectedFlag').text("Connected with protocol v" + controller.connection.opts.requestProtocolVersion);
-    // setInterval(function() {
-        controller.on('animationFrame', function(frame) {
-    	    // var frame = controller.frame()
+        setInterval(function() {
+        // controller.on('animationFrame', function(frame) {
+    	    var frame = controller.frame()
             if (frame.valid && frame.hands[0]){
                 var hand   = frame.hands[0],
                     brkVal = hand.grabStrength,
@@ -45,9 +45,9 @@ window.onload = function () {
                 $('#directionValue').text(dirVal.toPrecision(3));
                 $('#speedValue').text(spdVal.toPrecision(3));
             }
-        })
-    // }, 20);
-    });
+        // })
+    }, 20);
+    // });
     controller.on('disconnect', function() {
         $('#connectedFlag').text("Disconnected");
     });
