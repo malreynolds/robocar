@@ -46,8 +46,8 @@ window.onload = function () {
                 $('#speedValue').text(spdVal.toPrecision(3));
             }
         // })
-    }, 20);
-    // });
+        }, 20);
+    });
     controller.on('disconnect', function() {
         $('#connectedFlag').text("Disconnected");
     });
