@@ -80,6 +80,11 @@ board.on("ready", function() {
     }
   });
 
+  board.repl.inject({
+    lm: lm,
+    rm: rm
+  });
+
   var count = 0;
   var firstTime = Date.now();
   var secondTime;
@@ -100,7 +105,7 @@ board.on("ready", function() {
 
   // Start the motors at half speed
   for (int i = 128; i >= 0; i--;) {
-    board.wait(10, function(){
+    board.wait(20, function(){
       lm.forward(i);
       rm.forward(i);
     })
