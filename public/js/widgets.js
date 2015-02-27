@@ -8,7 +8,7 @@ var directionmeter = Raphael('dcanvas').tachometer(180, {
     interactive: true
 });
 
-var directionmeter = Raphael('scanvas').tachometer(0, {
+var speedmeter = Raphael('scanvas').tachometer(0, {
     number: true,
     scaleAngleStart: 180,
     scaleAngleEnd: 180,
