@@ -13,6 +13,7 @@
     "i2c": "latest",
     "leapjs": "latest",
     "socket.io": "latest",
-    "jade": "latest"
+    "jade": "latest",
+    "johnny-five": "latest"
   }
 }

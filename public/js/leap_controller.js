@@ -5,12 +5,20 @@ window.onload = function () {
         enableGestures: true,
         frameEventName: 'animationFrame',
     });
-    var socket = io.connect('http://192.168.1.10:3000');
+    var socket = io.connect('http://192.168.1.75:3000');
 
     controller.connect();
     controller.setBackground(true);
+ 
 
-    controller.on('animationFrame', function(frame) {
+    controller.on('ready', function() {
+        $('#readyFlag').text("ready. Service version: " + controller.connection.protocol.serviceVersion);
+    });
+    controller.on('connect', function() {
+        $('#connectedFlag').text("Connected with protocol v" + controller.connection.opts.requestProtocolVersion);
+    setInterval(function() {
+//    controller.on('animationFrame', function(frame) {
+	var frame = controller.frame()
         if (frame.valid && frame.hands[0]){
             var hand   = frame.hands[0],
                 brkVal = hand.grabStrength,
@@ -47,13 +55,7 @@ window.onload = function () {
             $('#speedValue').text(spdVal.toPrecision(3));
             console.log(frame);
         }
-    });
-
-    controller.on('ready', function() {
-        $('#readyFlag').text("ready. Service version: " + controller.connection.protocol.serviceVersion);
-    });
-    controller.on('connect', function() {
-        $('#connectedFlag').text("Connected with protocol v" + controller.connection.opts.requestProtocolVersion);
+    }, 20);
     });
     controller.on('disconnect', function() {
         $('#connectedFlag').text("Disconnected");

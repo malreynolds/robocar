@@ -3,11 +3,8 @@ var path       = require('path');
 var debug      = require("debug")("robocar");
 var app        = express();
 var socketio   = require('socket.io');
-var i2c        = require('i2c');
-var i2caddress = 0x07;
-var i2cstart   = 0x0F;
-var pwmfreq    = 6;
-var wire       = new i2c(0x07, {device: '/dev/i2c-1'});
+var five       = require("johnny-five"),
+var board      = new five.Board();
 
 // Set the viewing engine to jade
 app.set('views', path.join(__dirname, 'views'));
@@ -35,40 +32,21 @@ var server = app.listen(app.get('port'), function() {
 // Check there for more details
 var io = socketio.listen(server);
 
+var count = 0;
+var firstTime = Date.now();
+var secondTime;
+var diff;
+
 // On client connection
-var breakFlag = true;
-var command = new Int8Array(27);
 io.sockets.on('connection', function(socket) {
     socket.on('controlMessage', function(message) {
-        command[0] = i2cstart;
-        command[1] = pwmfreq;
-        command[2] = 0;
-        command[3] = message.speed;
-        command[4] = message.breaks;
-        command[5] = 0;
-        command[6] = message.speed;
-        command[7] = message.breaks;
-        command[8] = 0;
-        command[9] = 0;
-        command[10] = 0;
-        command[11] = 0;
-        command[12] = 0;
-        command[13] = 0;
-        command[14] = 0;
-        command[15] = 0;
-        command[16] = 0;
-        command[17] = 0;
-        command[18] = 0;
-        command[19] = 0;
-        command[20] = 50;
-        command[21] = 0
-        command[22] = 50
-        command[23] = 0;
-        command[24] = 250;
-        command[25] = i2caddress;
-        command[26] = 0;
-	console.log("Sending i2c command" + String.fromCharCode.apply(null, command));
+        secondTime = Date.now();
+	diff = secondTime - firstTime
+	firstTime = secondTime;
+	console.log(diff);
+	if (diff > 15) {
+		console.log("good");
+      	}
     });
 })
 
-wire.stream(command, 27, 10);
