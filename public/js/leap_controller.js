@@ -25,26 +25,21 @@ window.onload = function () {
                 handX  = hand.palmPosition[0],
                 handZ  = hand.palmPosition[2],
                 dirVal = Math.atan2(-handZ, handX) * radToDeg,
-                spdVal = handZ;
+                spdVal = -handZ;
 
             // Normalize direction
-            if (dirVal < 0) {
+            if (dirVal < 0)
                 dirVal += 360;
-            }
 
             // Normalize break to binary 1 or 0
-            if (brkVal > 0.9) {
-                brkVal = 1;
-            }
-            else {
-                brkVal = 0;
-            }
+            brkVal = (brkVal > 0.9 ? 1 : 0);
 
             // Send values to the server. Use emit for now, but change to send later in case
             // it happens to be more efficient
             socket.emit("controlMessage", {speed: spdVal, direction: dirVal, breaks: brkVal});
 
             // Update the browser client values
+            tachometer.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
             $('#breakValue').text(brkVal.toPrecision(3));
             $('#directionValue').text(dirVal.toPrecision(3));
             $('#speedValue').text(spdVal.toPrecision(3));
