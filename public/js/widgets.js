@@ -4,5 +4,6 @@ var tachometer = Raphael('canvas').tachometer(180, {
     scaleAngleEnd: 360,
     numberMin: 0,
     numberMax: 360,
+    needleAnimationDuration: 10,
     interactive: true
 });
