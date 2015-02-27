@@ -40,7 +40,7 @@ window.onload = function () {
                     // If going right, reduce speed of right motor
                     rmspd = spdVal - ((90 - dirVal) / 90) * spdVal;
                     lmspd = spdVal;
-                } else if (dirVal >= 180 && dirVal =< 270) {
+                } else if (dirVal >= 180 && dirVal <= 270) {
                     // If going left backwards, reduce speed of left motor
                     rmspd = spdVal;
                     lmspd = spdVal - ((270 - dirVal) / 90) * spdVal;
