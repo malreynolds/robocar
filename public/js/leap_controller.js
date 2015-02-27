@@ -25,7 +25,9 @@ window.onload = function () {
                     handX  = hand.palmPosition[0],
                     handZ  = hand.palmPosition[2],
                     dirVal = Math.atan2(-handZ, handX) * radToDeg,
+                    lmspd, rmspd,
                     spdVal = -handZ;
+
 
                 // Normalize direction
                 if (dirVal < 0)
@@ -34,9 +36,10 @@ window.onload = function () {
                 // Normalize brake to binary 1 or 0
                 brkVal = (brkVal > 0.9 ? 1 : 0);
 
+
                 // Send values to the server. Use emit for now, but change to send later in case
                 // it happens to be more efficient
-                socket.emit("controlMessage", {speed: spdVal, direction: dirVal, brakes: brkVal});
+                socket.emit("controlMessage", {lmspd: handZ, rmspd: handY, brake: brkVal});
 
                 // Update the browser client values
                 directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));

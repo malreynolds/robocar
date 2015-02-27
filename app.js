@@ -90,10 +90,9 @@ board.on("ready", function() {
     rm: rm
   });
 
-  // On client connection
-
   var timeout;
 
+  // On client connection
   io.sockets.on('connection', function(socket) {
     socket.on('controlMessage', function(message) {
       secondTime = Date.now();
@@ -114,7 +113,7 @@ board.on("ready", function() {
         if (isBraking == false)
           // lm.start(message.speed + 60);
           console.log("I'm supposed to be moving now");
-        console.log(message);
+        console.log(message + " , Time:" + diff);
         if (message.brake == 1 && isBraking == false) {
           isBraking = true;
           lm.brake();
