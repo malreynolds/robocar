@@ -1,8 +1,5 @@
-// Define pin numbers as specified in the documentation
+// Define pin numbers as specified in the documentation for the controller
 // -------------------------------------------------------------------------
-var lmencpin = 6  //  D6 - left  motor encoder input - optional
-var rmencpin = 5  //  D5 - right motor encoder input - optional
-
 var lmbrkpin = 4  //  D4 - left  motor brake        control    pin    HIGH = Brake
 var lmdirpin = 2  //  D2 - left  motor direction    control    pin    HIGH = Forward   Low = Reverse
 var lmpwmpin = 3  //  D3 - left  motor pulse width  modulation pin    0 - 255          Speed and Brake
@@ -13,12 +10,9 @@ var rmdirpin = 10  // D10 - right motor direction    control    pin    HIGH = Fo
 var rmpwmpin = 11  // D11 - right motor pulse width  modulation pin    0 - 255          Speed and Brake
 var rmcurpin = 7  //  A7 - right motor current      monitor    pin    0 - 1023         -20A to +20A
 
-var voltspin = 3  //  A3 - battery voltage          1V = 33.57        30V = 1007
+var handservopin = 7;
+var gripservopin = 8;
 // -------------------------------------------------------------------------
-
-// Define global board variables
-var lmspd, lmbrk;
-var rmspd, rmbrk;
 
 // Define node variables
 // -------------------------------------------
@@ -85,9 +79,21 @@ board.on("ready", function() {
     }
   });
 
+  var handServo = new five.Servo({
+    pin: handservopin,
+    center: true;
+  })
+
+  var gripServo = new five.Servo({
+    pin: handservopin,
+    center: true;
+  })
+
   board.repl.inject({
     lm: lm,
-    rm: rm
+    rm: rm,
+    handServo: handServo,
+    gripServo: gripServo
   });
 
   var timeout;
