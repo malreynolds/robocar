@@ -81,12 +81,12 @@ board.on("ready", function() {
 
   var handServo = new five.Servo({
     pin: handservopin,
-    center: true;
+    center: true
   })
 
   var gripServo = new five.Servo({
     pin: handservopin,
-    center: true;
+    center: true
   })
 
   board.repl.inject({
