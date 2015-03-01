@@ -5,7 +5,7 @@ window.onload = function () {
         enableGestures: true,
         frameEventName: 'animationFrame',
     });
-    var socket = io.connect('http://192.168.1.75:3000');
+    var socket = io.connect('http://' + window.location.hostname + ':3000');
 
     controller.connect();
     controller.setBackground(true);
