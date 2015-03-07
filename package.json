@@ -13,7 +13,7 @@
     "leapjs": "latest",
     "socket.io": "latest",
     "jade": "latest",
-    "johnny-five": "latest"
+    "johnny-five": "latest",
     "async": "latest"
   }
 }
