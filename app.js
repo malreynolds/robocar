@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // this parses user-agent string for device type
 app.use(device.capture());
 
+// send to default view if not phone and to phone view otherwise
 device.enableViewRouting(app);
 
 // Route all requests to the main page

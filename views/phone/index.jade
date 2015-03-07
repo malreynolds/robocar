@@ -14,7 +14,19 @@ html(lang="en")
 
     body
         .container
-            p Hi
+            h1 Control RoboCar
+            table(class="table table-hover")
+                thead
+                    tr
+                        th Movement(Forward/Left/Right/Backward)
+                        th Value
+                tbody
+                    tr
+                        td Direction(Forward/Backwards)
+                        td#direction
+                    tr
+                        td Turn(Left/Right)
+                        td#turn
 
         script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
         script(src="lib/raphael-min.js")
@@ -23,3 +35,4 @@ html(lang="en")
         script(src="/socket.io/socket.io.js")
         script(src="//js.leapmotion.com/leap-0.6.3.min.js")
         script(src="js/common.js")
+        script(src="js/phone_controller.js")
