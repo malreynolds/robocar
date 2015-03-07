@@ -32,6 +32,7 @@ window.onload = function () {
                 if (dirVal < 0)
                     dirVal += 360;
 
+                if (spdVal < 50) spdVal = 0;
                 spdVal += 50;
                 if (spdVal > 255) spdVal = 255;
 
