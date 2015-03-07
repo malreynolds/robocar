@@ -73,7 +73,7 @@ $(function () {
             moving = true;
         }
         if (moving) {
-            socket.emit("controlMessage", {dir: direction, lmspdVal: lspd, rmspdVal: rspd, brake: brakes});
+            socket.emit("controlMessage", {dir: direction, lmspeed: lspd, rmspeed: rspd, brake: brakes});
             // Update the browser client values
             directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
             speedmeter.set((spdVal / 255) * 100);
