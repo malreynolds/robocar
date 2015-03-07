@@ -10,6 +10,18 @@
     overflow:hidden;
 }
 
+#helpcontainer {
+    float:left;
+    width:50%;
+    overflow:hidden;
+}
+
+#keyscontainer {
+    float:left;
+    width:50%;
+    overflow:hidden;
+}
+
 a{
   display:block;
   width:100px;
