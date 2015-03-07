@@ -32,9 +32,11 @@ window.onload = function () {
                 if (dirVal < 0)
                     dirVal += 360;
 
-                if (spdVal < 50) spdVal = 0;
-                spdVal += 50;
-                if (spdVal > 255) spdVal = 255;
+                if (spdVal < 20) spdVal = 0;
+                else {
+                    spdVal += 50;
+                    if (spdVal > 255) spdVal = 255;
+                }
 
                 if (dirVal >= 90 && dirVal <= 180) {
                     // If going left, reduce speed of left motor
