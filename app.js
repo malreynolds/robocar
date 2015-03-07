@@ -124,18 +124,18 @@ board.on("ready", function() {
         // Handle brakes
         if (message.brake == 1 && isBraking == false) {
           isBraking = true;
-            async.parallel([
-              lm.brake(),
-              rm.brake()
-            ])
+          async.parallel([
+            lm.brake(),
+            rm.brake()
+          ]);
           console.log("braking");
         }
         else if (message.brake == 0 && isBraking == true) {
           isBraking = false;
-            async.parallel([
-              lm.release(),
-              rm.release()
-            ])
+          async.parallel([
+            lm.release(),
+            rm.release()
+          ]);
           console.log("releasing brakes");
         }
 
@@ -146,22 +146,17 @@ board.on("ready", function() {
             async.parallel([
               lm.forward(message.lmspeed),
               rm.forward(message.rmspeed)
-            ])
+            ]);
 
           } else {
           // If we're moving backwards
             async.parallel([
               lm.reverse(message.lmspeed),
               rm.reverse(message.rmspeed)
-            ])
+            ]);
           }
         }
       }
     });
   })
 });
-
-
-
-
-
