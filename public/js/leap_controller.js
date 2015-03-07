@@ -62,7 +62,7 @@ controller.on('connect', function() {
             // Update the browser client values
             directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
             speedmeter.set((spdVal / 255) * 100);
-            $('#brakeValue').text(brkVal);
+            $('#brakeValue').text(brkVal.toPrecision(3));
             $('#directionValue').text(dirVal.toPrecision(3));
             $('#speedValue').text(spdVal.toPrecision(3));
         }
