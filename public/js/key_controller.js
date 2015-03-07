@@ -79,7 +79,7 @@ $(function () {
             speedmeter.set((spdVal / 255) * 100);
             $('#brakeValue').text(brakes);
             $('#directionValue').text(dirVal.toPrecision(3));
-            $('#spdValValue').text(spdVal.toPrecision(3));
+            $('#spdValValue').text(spdVal);
             moving = false;
         }
     }
