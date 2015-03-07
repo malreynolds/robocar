@@ -14,10 +14,19 @@ html(lang="en")
 
     body
         .container
-            h1 Control RoboCar
-            p.lead.
-                Plug in your Leap Motion Controller and start moving the robot. <br/>
-                If unavailable, you can also use the keyboard <kbd>w</kbd> <kbd>a</kbd> <kbd>s</kbd> <kbd>d</kbd> control.
+
+            #headcontainer
+                #helpcontainer
+                    h1 Control RoboCar
+                    p.lead.
+                        Plug in your Leap Motion Controller and start moving the robot. <br/>
+                        If unavailable, you can also use the keyboard <kbd>w</kbd> <kbd>a</kbd> <kbd>s</kbd> <kbd>d</kbd> control.
+                #keyscontainer
+                    a.up() w
+                    a.left() a
+                    a.down() s
+                    a.right() d
+
             h2 Leap Connection
             table(class="table table-hover")
                 thead
