@@ -23,7 +23,6 @@ var app        = express();
 var socketio   = require('socket.io');
 var five       = require("johnny-five");
 var board      = new five.Board();
-var async      = require('async');
 // -------------------------------------------
 
 // The board's pins will not be accessible until
@@ -124,18 +123,14 @@ board.on("ready", function() {
         // Handle brakes
         if (message.brake == 1 && isBraking == false) {
           isBraking = true;
-          async.parallel([
-            lm.brake(),
-            rm.brake()
-          ]);
+          lm.brake();
+          rm.brake();
           console.log("braking");
         }
         else if (message.brake == 0 && isBraking == true) {
           isBraking = false;
-          async.parallel([
-            lm.release(),
-            rm.release()
-          ]);
+          lm.release();
+          rm.release();
           console.log("releasing brakes");
         }
 
@@ -143,20 +138,20 @@ board.on("ready", function() {
         if (isBraking == false) {
           if (message.dir == true) {
           // If we're moving forward
-            async.parallel([
-              lm.forward(message.lmspeed),
-              rm.forward(message.rmspeed)
-            ]);
-
+            lm.forward(message.lmspeed);
+            rm.forward(message.rmspeed);
           } else {
           // If we're moving backwards
-            async.parallel([
-              lm.reverse(message.lmspeed),
-              rm.reverse(message.rmspeed)
-            ]);
+            lm.reverse(message.lmspeed);
+            rm.reverse(message.rmspeed);
           }
         }
       }
     });
   })
 });
+
+
+
+
+
