@@ -62,7 +62,7 @@ $(function () {
             moving = true;
         }
         if (moving) {
-            socket.emit("controlMessage", {dir: direction, lmspeed: lmspd, rmspeed: rmspd, brake: brakes});
+            socket.emit("controlMessage", {dir: direction, lmspeed: lspd, rmspeed: rspd, brake: brakes});
             moving = false;
         }
     }
