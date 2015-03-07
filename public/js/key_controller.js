@@ -2,12 +2,17 @@ $(function () {
 
     var spdVal = 128;
 
-    var lspd, rspd, direction, brakes = 0, moving = false, dirVal;
+    var lspd, rspd, direction = true, brakes = 0, moving = false, dirVal;
 
     var up    = false,
         down  = false,
         left  = false,
         right = false;
+
+    setInterval(function() {
+        if(up || down || left || right)
+            moveMotors();
+    }, 20);
 
     function moveMotors() {
         // If we're going forward
@@ -60,13 +65,11 @@ $(function () {
             rspd = spdVal;
             moving = true;
             dirVal = 180;
-            direction = true;
         // if we're rotating in a right direction
         } else if (right && !left && !down && !up) {
             lspd = spdVal;
             rspd = 0;
             dirVal = 0;
-            direction = true;
             moving = true;
         }
         if (moving) {
@@ -104,7 +107,6 @@ $(function () {
             $('.right').addClass('active');
             break;
     }
-    moveMotors();
   });
 
   $(document).keyup(function(e){
@@ -130,6 +132,5 @@ $(function () {
             $('.right').removeClass('active');
             break;
     }
-    moveMotors();
   });
 });
