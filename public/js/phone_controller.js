@@ -14,8 +14,9 @@ function init() {
             deviceOrientationHandler(turn, direction);
             // Show a message to the user if the device is unsupported
             // document.getElementById("doEvent").innerHTML = "Robocar is not supported on your mobile device/browser.";
-       })
+       });
     }
+}
 
 function deviceOrientationHandler(turn, direction) {
     document.getElementById("turn").innerHTML = Math.round(turn);
