@@ -121,13 +121,13 @@ board.on("ready", function() {
       // We don't wanna process events too fast so we discard frames that are too close in time
       if (diff > 15) {
         // Handle brakes
-        if (message.brake == 1 && isBraking == false) {
+        if (message.brake == true && isBraking == false) {
           isBraking = true;
           lm.brake();
           rm.brake();
           console.log("braking");
         }
-        else if (message.brake == 0 && isBraking == true) {
+        else if (message.brake == false && isBraking == true) {
           isBraking = false;
           lm.release();
           rm.release();

@@ -2,7 +2,7 @@ $(function () {
 
     var spdVal = 128;
 
-    var lspd, rspd, direction = true, brakes = 0, moving = false, dirVal;
+    var lspd, rspd, direction = true, brakes = false, moving = false, dirVal;
 
     var up    = false,
         down  = false,
