@@ -21,6 +21,7 @@ var path       = require('path');
 var debug      = require("debug")("robocar");
 var app        = express();
 var socketio   = require('socket.io');
+var device     = require('express-device');
 var five       = require("johnny-five");
 var board      = new five.Board();
 // -------------------------------------------
@@ -39,6 +40,8 @@ app.get("/", function(req, res){
 
 // Define where static content lives
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(device.capture());
 
 // Set the port
 app.set('port', process.env.PORT || 3000);
