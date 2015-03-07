@@ -33,15 +33,18 @@ var board      = new five.Board();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', "jade");
 
+// Define where static content lives
+app.use(express.static(path.join(__dirname, 'public')));
+
+// this parses user-agent string for device type
+app.use(device.capture());
+
+device.enableViewRouting(app);
+
 // Route all requests to the main page
 app.get("/", function(req, res){
     res.render("index");
 });
-
-// Define where static content lives
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(device.capture());
 
 // Set the port
 app.set('port', process.env.PORT || 3000);

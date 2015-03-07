@@ -1,0 +1,25 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="utf-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        meta(name="description", content="A web application to control an IoT wheeled robot")
+        meta(name="author" content="Atanas Abrashev")
+
+        title RoboCar
+
+        link(href="lib/bootstrap/css/bootstrap.min.css", rel="stylesheet")
+
+        link(href="css/style.css", rel="stylesheet")
+
+    body
+        .container
+            p Hi
+
+        script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+        script(src="lib/raphael-min.js")
+        script(src="lib/raphael.tachometer.js/raphael.tachometer.min.js")
+        script(src="lib/bootstrap/js/bootstrap.min.js")
+        script(src="/socket.io/socket.io.js")
+        script(src="//js.leapmotion.com/leap-0.6.3.min.js")
+        script(src="js/common.js")
