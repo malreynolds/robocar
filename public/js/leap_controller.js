@@ -39,6 +39,8 @@ $(function () {
                 brkVal = hand.grabStrength,
                 handX  = hand.palmPosition[0],
                 handZ  = hand.palmPosition[2],
+                roll   = hand.roll(),  // controls direction in angle mode
+                pitch  = hand.pitch(), // controls speed in angle mode
                 dirVal = Math.atan2(-handZ, handX) * radToDeg,
                 spdVal = (Math.abs(handX) > Math.abs(handZ)) ? Math.abs(handX) : Math.abs(handZ);
 
@@ -46,46 +48,90 @@ $(function () {
 
                 moving = true;
 
-                // Normalize direction
-                if (dirVal < 0)
-                    dirVal += 360;
+                brakes = (brkVal > 0.9 ? true : false);
 
-                // Normalize speed value
-                if (spdVal < 20) spdVal = 0;
-                else {
-                    spdVal += 50;
-                    if (spdVal > 255) spdVal = 255;
-                }
+                if (palmMode) {
+                    var speed = parseInt(Math.abs(pitch) * 20);
+                    var steer = parseInt(Math.abs(roll) * 20);
 
-                if (dirVal >= 90 && dirVal <= 180) {
-                    // If going left, reduce speed of left motor
-                    rmspd = spdVal;
-                    lmspd = spdVal - ((dirVal - 90) / 90) * spdVal;
-                } else if (dirVal >= 0 && dirVal <= 90) {
-                    // If going right, reduce speed of right motor
-                    rmspd = spdVal - ((90 - dirVal) / 90) * spdVal;
-                    lmspd = spdVal;
-                } else if (dirVal >= 180 && dirVal <= 270) {
-                    // If going left backwards, reduce speed of left motor
-                    rmspd = spdVal;
-                    lmspd = spdVal - ((270 - dirVal) / 90) * spdVal;
+                    if (speed < 3)
+                        moving = false;
+                    else if (speed > 20) {
+                        speed = 20;
+                        moving = true;
+                    } else {
+                        moving = true;
+                    }
+
+                    // Normalize speed values
+                    speed = (speed * 10) + 32;
+
+                    // Get the direction
+                    direction = (pitch > 0) ? false : true;
+
+                    // For very small values of the roll angle, we don't account for steering
+                    if (Math.abs(roll) > 20) {
+                        steer = 20;
+                    } else {
+                        steer = Math.abs(roll);
+                    }
+
+                    var reduce_factor = speed / 20;
+
+                    // Steering left
+                    if (roll < 0) {
+                        lmspd = parseInt(speed - steerVal * reduce_factor);
+                        rmspd = speed;
+                    } else {
+                        lmspd = speed;
+                        rmspd = parseInt(speed - steerVal * reduce_factor);
+                    }
+
+                    $('#directionValue').text(direction.toPrecision(3));
+                    $('#speedValue').text(speed.toPrecision(3));
+
                 } else {
-                    // If going right backwards, reduce speed of right motor
-                    rmspd = spdVal - ((dirVal - 270) / 90) * spdVal;
-                    lmspd = spdVal;
+                    // Normalize direction
+                    if (dirVal < 0)
+                        dirVal += 360;
+
+                    // Normalize speed value
+                    if (spdVal < 20) spdVal = 0;
+                    else {
+                        spdVal += 50;
+                        if (spdVal > 255) spdVal = 255;
+                    }
+
+                    if (dirVal >= 90 && dirVal <= 180) {
+                        // If going left, reduce speed of left motor
+                        rmspd = spdVal;
+                        lmspd = spdVal - ((dirVal - 90) / 90) * spdVal;
+                    } else if (dirVal >= 0 && dirVal <= 90) {
+                        // If going right, reduce speed of right motor
+                        rmspd = spdVal - ((90 - dirVal) / 90) * spdVal;
+                        lmspd = spdVal;
+                    } else if (dirVal >= 180 && dirVal <= 270) {
+                        // If going left backwards, reduce speed of left motor
+                        rmspd = spdVal;
+                        lmspd = spdVal - ((270 - dirVal) / 90) * spdVal;
+                    } else {
+                        // If going right backwards, reduce speed of right motor
+                        rmspd = spdVal - ((dirVal - 270) / 90) * spdVal;
+                        lmspd = spdVal;
+                    }
+
+                    direction = handZ < 0;
+
+                    // Update the browser client values
+                    directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
+                    speedmeter.set((spdVal / 255) * 100);
+                    $('#directionValue').text(dirVal.toPrecision(3));
+                    $('#speedValue').text(spdVal.toPrecision(3));
                 }
 
-                direction = handZ < 0
-                brakes = (brkVal > 0.9 ? true : false)
-
-                // Update the browser client values
-                directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
-                speedmeter.set((spdVal / 255) * 100);
-                $('#brakeValue').text(brakes);
-                $('#directionValue').text(dirVal.toPrecision(3));
-                $('#speedValue').text(spdVal.toPrecision(3));
             }
 
+            $('#brakeValue').text(brakes);
             $('#modeValue').text(palmMode ? "Hand Angle" :"Hand Position");
         }
     })
