@@ -1,6 +1,8 @@
 $(function () {
     var radToDeg = 180 / Math.PI;
 
+    var palmMode = false;
+
     var controller = new Leap.Controller({
         enableGestures: true,
         frameEventName: 'animationFrame',
@@ -68,6 +70,7 @@ $(function () {
             // Update the browser client values
             directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
             speedmeter.set((spdVal / 255) * 100);
+            $('#modeValue').text(palmMode ? "Hand Angle" :"Hand Position");
             $('#brakeValue').text(brakes);
             $('#directionValue').text(dirVal.toPrecision(3));
             $('#speedValue').text(spdVal.toPrecision(3));
@@ -81,6 +84,7 @@ $(function () {
               break;
           case "keyTap":
               console.log("Key Tap Gesture");
+              palmMode = !palmMode;
               break;
           case "screenTap":
               console.log("Screen Tap Gesture");
