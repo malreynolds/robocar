@@ -30,8 +30,7 @@ $(function () {
             frame.gestures.forEach(function(gesture) {
                 var handId = gesture.handIds[0];
                 var type = frame.hand(handId).type;
-                if (type == "right") break;
-                else if (gesture.type == "keyTap") {
+                if (type == "left" && gesture.type == "keyTap") {
                     palmMode = !palmMode;
                 }
             });
