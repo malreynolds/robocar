@@ -74,6 +74,23 @@ $(function () {
         }
     })
 
+    controller.on("gesture", function(gesture) {
+        switch (gesture.type){
+          case "circle":
+              console.log("Circle Gesture");
+              break;
+          case "keyTap":
+              console.log("Key Tap Gesture");
+              break;
+          case "screenTap":
+              console.log("Screen Tap Gesture");
+              break;
+          case "swipe":
+              console.log("Swipe Gesture");
+              break;
+        }
+    });
+
     controller.on('connect', function() {
         $('#connectedFlag').text("Connected with protocol v" + controller.connection.opts.requestProtocolVersion);
      });
