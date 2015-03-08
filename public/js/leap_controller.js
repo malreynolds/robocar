@@ -87,7 +87,7 @@ $(function () {
                         rmspd = parseInt(speed - steer * reduce_factor);
                     }
 
-                    $('#directionValue').text(direction.toPrecision(3));
+                    $('#directionValue').text(direction);
                     $('#speedValue').text(speed.toPrecision(3));
 
                 } else {
