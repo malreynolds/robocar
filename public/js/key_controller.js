@@ -82,7 +82,7 @@ $(function () {
             $('#modeValue').text("Keyboard");
             $('#brakeValue').text(brakes);
             $('#directionValue').text(dirVal.toPrecision(3));
-            $('#spdValValue').text(spdVal.toPrecision(3));
+            $('#speedValue').text(spdVal.toPrecision(3));
             moving = false;
         }
     }

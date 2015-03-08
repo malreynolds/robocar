@@ -25,7 +25,17 @@ $(function () {
     }, 20);
 
     controller.on('animationFrame', function(frame) {
-        if (frame.valid && frame.hands[0]){
+        if (frame.valid && frame.hands.length > 0) {
+
+            frame.gestures.forEach(function(gesture) {
+                var handId = gesture.handIds[0];
+                var type = frame.hand(handId).type;
+                if (type == "right") break;
+                else if (gesture.type == "keyTap") {
+                    palmMode = !palmMode;
+                }
+            });
+
             var hand   = frame.hands[0],
                 brkVal = hand.grabStrength,
                 handX  = hand.palmPosition[0],
@@ -77,23 +87,6 @@ $(function () {
         }
     })
 
-    controller.on("gesture", function(gesture) {
-        switch (gesture.type){
-          case "circle":
-              console.log("Circle Gesture");
-              break;
-          case "keyTap":
-              console.log("Key Tap Gesture");
-              palmMode = !palmMode;
-              break;
-          case "screenTap":
-              console.log("Screen Tap Gesture");
-              break;
-          case "swipe":
-              console.log("Swipe Gesture");
-              break;
-        }
-    });
 
     controller.on('connect', function() {
         $('#connectedFlag').text("Connected with protocol v" + controller.connection.opts.requestProtocolVersion);
