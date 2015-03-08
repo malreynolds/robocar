@@ -99,4 +99,4 @@ $(function () {
     controller.on('streamingStopped', function(deviceInfo) {
         $('#streamingFlag').text("Streaming stopped.");
     });
-)};
+});
