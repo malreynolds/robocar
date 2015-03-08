@@ -4,12 +4,12 @@ $(function () {
 
     direction = true, brakes = false, moving = false;
 
-    var dirVal;
-
     var up    = false,
         down  = false,
         left  = false,
         right = false;
+
+    var dirVal;
 
     setInterval(function() {
         if(up || down || left || right)
@@ -21,7 +21,7 @@ $(function () {
         if (up) {
             // if we're going strictly forward
             if (!left && !down && !right) {
-                lsdp = spdVal;
+                lmspd = spdVal;
                 rmspd = spdVal;
                 moving = true;
                 dirVal = 90;
