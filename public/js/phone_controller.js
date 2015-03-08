@@ -1,6 +1,8 @@
 $(function () {
 
-    var lmspd, rmspd, speed, direction, steerVal, moving = false, brakes = false;
+    var speed, steerVal;
+
+    moving = false, brakes = false;
 
     init();
 

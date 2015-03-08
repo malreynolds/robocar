@@ -2,7 +2,9 @@ $(function () {
 
     var spdVal = 128;
 
-    var lspd, rspd, direction = true, brakes = false, moving = false, dirVal;
+    direction = true, brakes = false, moving = false;
+
+    var dirVal;
 
     var up    = false,
         down  = false,
@@ -20,19 +22,19 @@ $(function () {
             // if we're going strictly forward
             if (!left && !down && !right) {
                 lsdp = spdVal;
-                rspd = spdVal;
+                rmspd = spdVal;
                 moving = true;
                 dirVal = 90;
             // if we're going forward while turning left
             } else if (left && !down && !right) {
-                lspd = 0;
-                rspd = spdVal;
+                lmspd = 0;
+                rmspd = spdVal;
                 moving = true;
                 dirVal = 180;
             // if we're going forward while turning right
             } else if (!left && !down && right) {
-                lspd = spdVal;
-                rspd = 0;
+                lmspd = spdVal;
+                rmspd = 0;
                 moving = true;
                 dirVal = 0;
             }
@@ -41,39 +43,39 @@ $(function () {
         } else if (down) {
             // if we're going strictly backwards
             if (!left && !up && !right) {
-                lspd = spdVal;
-                rspd = spdVal;
+                lmspd = spdVal;
+                rmspd = spdVal;
                 moving = true;
                 dirVal = 270;
             // if we're going backwards in a left direction
             } else if (left && !up && !right) {
-                lspd = 0;
-                rspd = spdVal;
+                lmspd = 0;
+                rmspd = spdVal;
                 moving = true;
                 dirVal = 180;
             // if we're going backwards in a right direction
             } else if (!left && !up && right) {
-                lspd = spdVal;
-                rspd = 0;
+                lmspd = spdVal;
+                rmspd = 0;
                 moving = true;
                 dirVal = 0;
             }
             direction = false;
         // if we're rotating in a left direction
         } else if (left && !up && !down && !right) {
-            lspd = 0;
-            rspd = spdVal;
+            lmspd = 0;
+            rmspd = spdVal;
             moving = true;
             dirVal = 180;
         // if we're rotating in a right direction
         } else if (right && !left && !down && !up) {
-            lspd = spdVal;
-            rspd = 0;
+            lmspd = spdVal;
+            rmspd = 0;
             dirVal = 0;
             moving = true;
         }
         if (moving) {
-            socket.emit("controlMessage", {dir: direction, lmspeed: lspd, rmspeed: rspd, brake: brakes});
+            socket.emit("controlMessage", {dir: direction, lmspeed: lmspd, rmspeed: rmspd, brake: brakes});
             // Update the browser client values
             directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
             speedmeter.set((spdVal / 255) * 100);
