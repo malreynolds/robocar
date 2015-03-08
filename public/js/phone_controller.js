@@ -35,12 +35,13 @@ $(function () {
             speed = 20;
             moving = true;
         } else {
+            speed = Math.abs(throttle);
             moving = true;
         }
 
 
         // Normalize speed values
-        speed = speed * 10 + 32;
+        speed = (speed * 10) + 32;
 
         // Get the direction
         direction = (throttle > 0) ? false : true;
