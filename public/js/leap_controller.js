@@ -80,11 +80,11 @@ $(function () {
 
                     // Steering left
                     if (roll < 0) {
-                        lmspd = parseInt(speed - steerVal * reduce_factor);
+                        lmspd = parseInt(speed - steer * reduce_factor);
                         rmspd = speed;
                     } else {
                         lmspd = speed;
-                        rmspd = parseInt(speed - steerVal * reduce_factor);
+                        rmspd = parseInt(speed - steer * reduce_factor);
                     }
 
                     $('#directionValue').text(direction.toPrecision(3));
