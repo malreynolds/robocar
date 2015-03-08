@@ -69,22 +69,17 @@ $(function () {
                     // Get the direction
                     direction = (pitch > 0) ? false : true;
 
-                    // For very small values of the roll angle, we don't account for steering
-                    if (Math.abs(roll) > 20) {
-                        steer = 20;
-                    } else {
-                        steer = Math.abs(roll);
-                    }
+                    if (steer > 20) steer = 20;
 
                     var reduce_factor = speed / 20;
 
                     // Steering left
                     if (roll < 0) {
-                        lmspd = parseInt(speed - steer * reduce_factor);
-                        rmspd = speed;
-                    } else {
                         lmspd = speed;
                         rmspd = parseInt(speed - steer * reduce_factor);
+                    } else {
+                        lmspd = parseInt(speed - steer * reduce_factor);
+                        rmspd = speed;
                     }
 
                     $('#directionValue').text(direction);
