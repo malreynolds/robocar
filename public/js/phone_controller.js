@@ -52,6 +52,8 @@ $(function () {
             return;
         } else if (Math.abs(steer) > 20) {
             steerVal = 20;
+        } else {
+            steerVal = Math.abs(steer);
         }
 
         // In the range of (0...20) we can reduce the speed several times
