@@ -2,7 +2,7 @@ $(function () {
 
     var spdVal = 128;
 
-    direction = true, brakes = false, moving = false;
+    direction = true, moving = false;
 
     var up    = false,
         down  = false,
@@ -17,6 +17,7 @@ $(function () {
     }, 20);
 
     function moveMotors() {
+        brakes = false;
         // If we're going forward
         if (up) {
             // if we're going strictly forward

@@ -57,15 +57,12 @@ $(function () {
                     if (steer > 20) steer = 20;
                     if (speed > 20) speed = 20;
 
-                    moving = (speed >= 3 || steer >= 3);
-
-                    // Normalize speed values
-                    speed = (speed * 10) + 32;
+                    moving = (speed >= 3 || steer >= 5);
 
                     // Get the direction
                     direction = (pitch > 0) ? false : true;
 
-                    if (steer > 8) {
+                    if (Math.abs()) {
                         if (roll < 0) {
                             dirVal = 180;
                             lmspd = steer * 10 + 32
@@ -78,7 +75,7 @@ $(function () {
                             spdVal = rmspd;
                         }
                     } else {
-                        lmspd = rmspd = spdVal = speed;
+                        lmspd = rmspd = spdVal = speed * 10 + 32;
                         dirVal = direction ? 90 : 270;
                     }
 
