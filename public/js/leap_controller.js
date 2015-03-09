@@ -54,24 +54,16 @@ $(function () {
                     var speed = parseInt(Math.abs(pitch) * 20);
                     var steer = parseInt(Math.abs(roll) * 20);
 
-                    if (speed < 3)
-                        moving = false;
-                    else if (speed > 20) {
-                        speed = 20;
-                        moving = true;
-                    } else {
-                        moving = true;
-                    }
+                    if (steer > 20) steer = 20;
+                    if (speed > 20) speed = 20;
+
+                    moving = (speed >= 3 || steer >= 3);
 
                     // Normalize speed values
                     speed = (speed * 10) + 32;
 
                     // Get the direction
                     direction = (pitch > 0) ? false : true;
-
-                    if (steer > 20) steer = 20;
-
-                    var reduce_factor = speed / 20;
 
                     if (steer > 8) {
                         if (roll < 0) {
