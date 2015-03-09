@@ -73,13 +73,16 @@ $(function () {
 
                     var reduce_factor = speed / 20;
 
-                    // Steering left
-                    if (roll < 0) {
-                        lmspd = speed;
-                        rmspd = parseInt(speed - steer * reduce_factor);
+                    if (steer > 8) {
+                        if (roll < 0) {
+                            lmspd = steer * 10 + 32
+                            rmspd = 0;
+                        } else {
+                            lmspd = 0;
+                            rmspd = steer * 10 + 32;
+                        }
                     } else {
-                        lmspd = parseInt(speed - steer * reduce_factor);
-                        rmspd = speed;
+                        lmspd = rmspd = speed;
                     }
 
                     $('#directionValue').text(direction);
