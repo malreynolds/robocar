@@ -67,14 +67,19 @@ $(function () {
 
                     if (steer > 8) {
                         if (roll < 0) {
+                            dirVal = 180;
                             lmspd = steer * 10 + 32
                             rmspd = 0;
+                            spdVal = lmspd;
                         } else {
+                            dirVal = 0;
                             lmspd = 0;
                             rmspd = steer * 10 + 32;
+                            spdVal = rmspd;
                         }
                     } else {
-                        lmspd = rmspd = speed;
+                        lmspd = rmspd = spdVal = speed;
+                        dirVal = direction ? 90 : 270;
                     }
 
                     $('#directionValue').text(direction);
@@ -113,14 +118,13 @@ $(function () {
                     direction = handZ < 0;
 
                     // Update the browser client values
-                    directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
-                    speedmeter.set((spdVal / 255) * 100);
                     $('#directionValue').text(dirVal.toPrecision(3));
                     $('#speedValue').text(spdVal.toPrecision(3));
                 }
 
             }
-
+            directionmeter.set(dirVal <= 270 ? 270 - dirVal : 360 - (dirVal - 270));
+            speedmeter.set((spdVal / 255) * 100);
             $('#brakeValue').text(brakes);
             $('#modeValue').text(palmMode ? "Hand Angle" :"Hand Position");
         }
