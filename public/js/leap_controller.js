@@ -62,7 +62,7 @@ $(function () {
                     // Get the direction
                     direction = (pitch > 0) ? false : true;
 
-                    if (Math.abs()) {
+                    if (steer > speed) {
                         if (roll < 0) {
                             dirVal = 180;
                             lmspd = steer * 10 + 32
