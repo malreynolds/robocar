@@ -10,8 +10,6 @@ var rmdirpin = 10  // D10 - right motor direction    control    pin    HIGH = Fo
 var rmpwmpin = 11  // D11 - right motor pulse width  modulation pin    0 - 255          Speed and Brake
 var rmcurpin = 7  //  A7 - right motor current      monitor    pin    0 - 1023         -20A to +20A
 
-var handservopin = 8;
-var gripservopin = 7;
 // -------------------------------------------------------------------------
 
 // Define node variables
@@ -84,23 +82,6 @@ board.on("ready", function() {
       dir: rmdirpin,
       brake: rmbrkpin
     }
-  });
-
-  var handServo = new five.Servo({
-    pin: handservopin,
-    center: true
-  })
-
-  var gripServo = new five.Servo({
-    pin: gripservopin,
-    center: true
-  })
-
-  board.repl.inject({
-    lm: lm,
-    rm: rm,
-    handServo: handServo,
-    gripServo: gripServo
   });
 
   var timeout;
