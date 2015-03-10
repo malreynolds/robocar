@@ -1,13 +1,19 @@
 #dcanvas {
     float:left;
-    width:50%;
+    width:30%;
     overflow:hidden;
 }
 
 #scanvas {
     float:left;
-    width:50%;
+    width:30%;
     overflow:hidden;
+}
+
+#ccanvas {
+    float:left;
+    width:40%;
+    overflow: hidden;
 }
 
 #helpcontainer {
